@@ -44,14 +44,3 @@ class ColorConsoleFormatter(logging.Formatter):
         return formatter.format(record)
 
 
-custom_stream_handler = logging.StreamHandler()
-if not getattr(sys, 'frozen', False):  # 开发环境
-    custom_stream_handler.setFormatter(ColorConsoleFormatter())
-# 确保日志路径
-logging.basicConfig(
-    level=logging.INFO,
-    format="{asctime} {levelname:>7} {threadName:^10} [{filename}#{funcName}:{lineno}]: {message}",
-    style="{",
-    encoding='utf-8',
-    handlers=[custom_stream_handler]
-)

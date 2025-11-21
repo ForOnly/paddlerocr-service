@@ -13,6 +13,18 @@ from app.handler import ApplicationStartupEvent
 _EM = EventBusInstance()
 _log = logging.getLogger(__name__)
 
+custom_stream_handler = logging.StreamHandler()
+if not getattr(sys, 'frozen', False):  # 开发环境
+    custom_stream_handler.setFormatter(ColorConsoleFormatter())
+# 确保日志路径
+logging.basicConfig(
+    level=logging.INFO,
+    format="{asctime} {levelname:>7} {threadName:^10} [{filename}#{funcName}:{lineno}]: {message}",
+    style="{",
+    encoding='utf-8',
+    handlers=[custom_stream_handler]
+)
+
 
 @_EM.subscribe(ApplicationStartupEvent, priority=sys.maxsize)
 def init_logger_onstartup(event: ApplicationStartupEvent):
