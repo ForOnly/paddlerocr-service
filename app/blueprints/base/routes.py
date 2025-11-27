@@ -36,9 +36,9 @@ def ocr_endpoint():
     # 文件上传模式
     files = request.files.getlist("files")
     if not files:
-        return jsonify({"error": "No image provided"}), 400
+        return jsonify(SysResult.fail("No image provided"))
     with ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
         results = list(executor.map(lambda x: rec_text(x), files))
 
     # 处理结果，只返回可序列化的数据
-    return jsonify(SysResult(data=[result for result in results if result]))
+    return jsonify(SysResult.success(data=[result for result in results if result]))

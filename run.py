@@ -9,13 +9,12 @@ import sys
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
-from app.core import BizException
-from app.models.Result import SysResult
-
 # 设置环境变量
 os.environ["APP_PATH"] = os.getenv('APP_PATH') or os.path.abspath(os.path.dirname(__file__))  # noqa
 
 from app.App import App
+from app.core import BizException
+from app.models.Result import SysResult
 
 App.DEFAULT_LOG_FILE = "logs/app.log"
 
